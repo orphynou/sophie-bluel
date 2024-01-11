@@ -1,0 +1,117 @@
+/** Modal display **/
+.modal {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.active {
+    display: flex !important;
+}
+.modal-open {
+	overflow: hidden;
+}
+
+/** Modal outside **/
+.popup {
+    position: relative;
+    width: 630px;
+    height: 688px;
+    max-width: calc(100vw - 50px);
+    max-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 15px;
+}
+
+/** Modal inside 1st screen **/
+.mainPopup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 420px;
+    height: 100%;
+}
+.namePopup {
+    display: flex;
+    height: 10%;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+.fa-x {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+.fa-arrow-left {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 21px;
+    cursor: pointer;
+}
+.popupBar {
+    height: 5%;
+    width: 420px;
+    border-bottom: #B3B3B3 1px solid;
+}
+.editGallery {
+    height: 80%;
+	width: 100%;
+	display: grid;
+    justify-content: center;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 20px;
+    overflow: auto;
+    position: relative;
+    align-content: flex-start;
+}
+.editGallery figure {
+    position: relative;
+}
+.editGallery img {
+	width: 100%;
+}
+.trashBtn {
+	position: absolute;
+    right: 5px;
+    top: 5px;
+    border: none;
+    height: 17px;
+    width: 17px;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border-radius: 15%;
+    cursor: pointer;
+}
+.fa-trash-can {
+	color: white;
+}
+#btnAddPic, #validateBtn{
+	height: 36px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 30px 0px ;
+	width: 237px;
+	text-align: center;
+	border-radius: 60px ;
+    cursor: pointer;
+}
+.validateBtnOff {
+    background-color: #A7A7A7 !important
+}

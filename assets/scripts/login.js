@@ -9,7 +9,7 @@ document
     const email = document.getElementById("email-login").value;
     const password = document.getElementById("password-login").value;
 
-    //Construction du body pour la requete
+    //Création d'un objet pour l'envoi de la requête
     const requestBody = {
       email: email,
       password: password,
@@ -21,19 +21,19 @@ document
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     })
-      //Réponse de l'API : envoi une erreur si pas de réponse de l'API
+      //Vérification si la réponse http est réussi avec un statut 2xx, si ok, renvoi en json
       .then((Response) => {
         if (!Response.ok) {
           throw new Error("Erreur de connexion");
         }
         return Response.json();
       })
-      //Si connecté, copie le token dans le localStorage et redirige vers la page d'accueil
+      //Si json ok, copie le token dans le localStorage et charge vers la page d'accueil
       .then((data) => {
         localStorage.setItem("authToken", data.token);
         window.location.href = "index.html";
       })
-      //Si mauvaise saisie, renvoi une alerte en popup du navigateur
+      //Si erreur réponse, renvoi une alerte en popup du navigateur
       .catch((error) => {
         alert("L'email ou le mot de passe saisi est incorrect");
       });

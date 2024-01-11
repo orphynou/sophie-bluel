@@ -1,43 +1,9 @@
+//Import des fonctions dans le fichier script.js
+import { filterWorks } from "./works.js";
+
 //Récupération des données depuis l'API
-const works = await fetch("http://localhost:5678/api/works").then((works) =>
-  works.json()
-);
-
-//Fonction pour générer la page de galerie
-export function genererWorks(works) {
-  //Boucle for pour récupérer tous les objets disponibles sur le serveur works
-  for (let i = 0; i < works.length; i++) {
-    const gallery = works[i];
-
-    //Récupération de l'élément du DOM pour la gallerie
-    const galleryElement = document.querySelector(".gallery");
-
-    //Création d'une balise dédiée à chaque projet
-    const figureElement = document.createElement("figure");
-
-    //Création des balises
-    const imageElement = document.createElement("img");
-    imageElement.src = gallery.imageUrl;
-    imageElement.alt = gallery.title;
-    const titleElement = document.createElement("figcaption");
-    titleElement.innerText = gallery.title;
-
-    //On rattache la balise figure à la class gallery
-    galleryElement.appendChild(figureElement);
-
-    //On rattache l'image et le titre à la balise figure
-    figureElement.appendChild(imageElement);
-    figureElement.appendChild(titleElement);
-  }
-}
-
-//Fonction pour supprimer l'attribut autofocus des balises button
-function removeBtnAttribute() {
-  let allBtn = document.querySelectorAll("button");
-  for (let i = 0; i < allBtn.length; i++) {
-    allBtn[i].removeAttribute("autofocus");
-  }
-}
+const reponse = await fetch("http://localhost:5678/api/works");
+const works = await reponse.json();
 
 //Fonction qui gère les boutons de filtre par catégorie
 export function filterBtn() {
@@ -46,8 +12,7 @@ export function filterBtn() {
   btnTous.addEventListener("click", function () {
     removeBtnAttribute();
     document.querySelector(".btn-tous").setAttribute("autofocus", "");
-    document.querySelector(".gallery").innerHTML = "";
-    genererWorks(works);
+    filterWorks(works);
   });
 
   // Ajout du listener pour filtrer par objet
@@ -58,8 +23,7 @@ export function filterBtn() {
     });
     removeBtnAttribute();
     document.querySelector(".btn-objets").setAttribute("autofocus", "");
-    document.querySelector(".gallery").innerHTML = "";
-    genererWorks(objetFilter);
+    filterWorks(objetFilter);
   });
 
   // Ajout du listener pour filtrer par appartement
@@ -70,8 +34,7 @@ export function filterBtn() {
     });
     removeBtnAttribute();
     document.querySelector(".btn-appartement").setAttribute("autofocus", "");
-    document.querySelector(".gallery").innerHTML = "";
-    genererWorks(appartementFilter);
+    filterWorks(appartementFilter);
   });
 
   // Ajout du listener pour filtrer par hotel et restaurant
@@ -82,9 +45,25 @@ export function filterBtn() {
     });
     removeBtnAttribute();
     document.querySelector(".btn-hotel").setAttribute("autofocus", "");
-    document.querySelector(".gallery").innerHTML = "";
-    genererWorks(hotelFilter);
+    filterWorks(hotelFilter);
   });
+}
+
+//Fonction pour supprimer l'attribut autofocus des balises button
+function removeBtnAttribute() {
+  let allBtn = document.querySelectorAll("button");
+  for (let i = 0; i < allBtn.length; i++) {
+    allBtn[i].removeAttribute("autofocus");
+  }
+}
+
+//Fonction pour cacher les élements non dispo pour les non loggé
+export function hiddenElement() {
+  const editBar = document.getElementById("editModeBar");
+  const editBtn = document.getElementById("editModeBtn");
+
+  editBar.remove();
+  editBtn.innerHTML = "";
 }
 
 //Fonction qui affiche le bouton login ou logout selon présence du token
@@ -101,13 +80,4 @@ export function loginLogoutBtn() {
     localStorage.removeItem("authToken");
     window.location.href = "index.html";
   });
-}
-
-//Fonction pour cacher les élements non dispo pour les non loggé
-export function hiddenElement() {
-  const editBar = document.getElementById("editModeBar");
-  const editBtn = document.getElementById("editModeBtn");
-
-  editBar.remove();
-  editBtn.innerHTML = "";
 }
