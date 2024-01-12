@@ -1,4 +1,4 @@
-/** Modal display **/
+/** Affichage de la modale **/
 .modal {
     position: fixed;
     display: none;
@@ -9,13 +9,13 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 .active {
-    display: flex !important;
+    display: flex;;
 }
 .modal-open {
 	overflow: hidden;
 }
 
-/** Modal outside **/
+/** Fenêtre de la modale **/
 .popup {
     position: relative;
     width: 630px;
@@ -25,12 +25,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     background-color: white;
     border-radius: 15px;
 }
 
-/** Modal inside 1st screen **/
+/** Contenu de la modale (partie commune) **/
 .mainPopup {
     display: flex;
     flex-direction: column;
@@ -39,11 +38,8 @@
     height: 100%;
 }
 .namePopup {
-    display: flex;
-    height: 10%;
-    align-items: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 60px;
+    margin-bottom: 45px;
     font-size: 26px;
 }
 .fa-x {
@@ -59,13 +55,25 @@
     font-size: 21px;
     cursor: pointer;
 }
+.barSubmitContainer {
+    margin-top: auto;
+    text-align: center;
+}
 .popupBar {
-    height: 5%;
     width: 420px;
     border-bottom: #B3B3B3 1px solid;
 }
+.barSubmitContainer input {
+	height: 36px;
+    margin-top: 30px;
+    margin-bottom: 45px;
+	width: 237px;
+    border: none;
+}
+
+/** Contenu spécifique de la modale (galerie) **/
 .editGallery {
-    height: 80%;
+    height: 60%;
 	width: 100%;
 	display: grid;
     justify-content: center;
@@ -81,6 +89,8 @@
 }
 .editGallery img {
 	width: 100%;
+    height: 102px;
+    object-fit: cover;
 }
 .trashBtn {
 	position: absolute;
@@ -98,20 +108,70 @@
 .fa-trash-can {
 	color: white;
 }
-#btnAddPic, #validateBtn{
-	height: 36px;
+
+/** Contenu spécifique de la modale (formulaire) **/
+.addWorksForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.file-preview-container {
+    height: 185px;
+}
+#previewContainer {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #E8F1F6;
+}
+.btn-add-pic {
+    width: 173px;
+    border-radius: 50px;
+    text-align: center;
+    background-color: #CBD6DC;
+    height: 36px;
+    line-height: 36px;
+    margin-top: 10px;
+    color: #306685;
+}
+.fa-image {
+    font-size: 76px;
+    color: #B9C5CC;
+}
+.preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.file-preview-container p {
+    font-size: 10px;
+    color: #444444;
+    margin: 10px;
+}
+input[type=file] {
+    display: none
+}
+.inputAddForm {
+	display: flex;
+    flex-direction: column;
+}
+.inputAddForm label {
+	margin: 2em 0 1em 0;
+}
+.inputAddForm input, select {
+	height: 50px;
+    font-family: 'Work Sans';
+	font-size: 1em;
+    padding-left: 20px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-    font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 30px 0px ;
-	width: 237px;
-	text-align: center;
-	border-radius: 60px ;
-    cursor: pointer;
 }
-.validateBtnOff {
-    background-color: #A7A7A7 !important
+.barSubmitContainer input.disabled {
+    background-color: #A7A7A7;
+    cursor: not-allowed;
 }

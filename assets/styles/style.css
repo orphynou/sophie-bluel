@@ -148,6 +148,8 @@ li:hover {
 .gallery img {
 	width: 100%;
 	margin-bottom: 10px;
+	height: 489px;
+    object-fit: cover ;
 }
 #contact {
 	width: 50%;

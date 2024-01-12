@@ -11,6 +11,7 @@ const worksFetch = () =>
 
 //Création de variable pour stocker le token s'il y en a un
 const token = localStorage.getItem("authToken");
+console.log("Je suis connecté et voici mon token : ", token);
 
 //Génération du la galerie complète depuis l'API
 loadingWorks(worksFetch);

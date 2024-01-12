@@ -1,3 +1,5 @@
+import { createModalElement } from "./modal.js";
+
 //Fonction pour générer la page de galerie pour le filtre
 export function filterWorks(works) {
   //Récupération de l'élément du DOM pour la gallerie
@@ -107,7 +109,6 @@ export function deleteWorksById(imgId) {
         if (!response.ok) {
           throw new Error("Erreur lors de la suppression de l'image");
         }
-        console.log("L'image a été effacé");
         //Suppression des 2 images (site et modal en même temps)
         modalFigure.remove();
         siteFigure.remove();
@@ -118,4 +119,59 @@ export function deleteWorksById(imgId) {
   } else {
     alert("ID de l'image non trouvé", imgId);
   }
+}
+
+//Fonction pour ajouter une photo
+export function AddWorksSubmit() {
+  //Récupération du token
+  const authToken = localStorage.getItem("authToken");
+  const imageFile = document.getElementById("file").files[0];
+  const imageName = document.getElementById("title").value;
+  const imageCategory = document.getElementById("category").value;
+
+  console.log("fichier image debut : ", imageFile);
+  console.log("nom image debut : ", imageName);
+  console.log("categorie image debut : ", imageCategory);
+
+  const categoryToInt = {
+    Objets: 1,
+    Appartements: 2,
+    HotelsRestaurants: 3,
+  };
+
+  const intCategory = categoryToInt[imageCategory];
+  console.log("categorie en INT : ", intCategory);
+
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  formData.append("title", imageName);
+  formData.append("category", intCategory);
+
+  const headers = new Headers({
+    Authorization: `Bearer ${authToken}`,
+  });
+
+  const requestData = {
+    method: "POST",
+    headers: headers,
+    body: formData,
+  };
+  console.log(headers);
+  console.log("formData avant envoi : ", formData);
+
+  fetch("http://localhost:5678/api/works", requestData)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur de réseau ou de serveur");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert("L'image a bien été ajouté");
+      createModalElement();
+    })
+    .catch((error) => {
+      alert("Une erreur s'est produite, veuillez retenter plus tard");
+      console.error(error);
+    });
 }
