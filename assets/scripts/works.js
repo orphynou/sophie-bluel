@@ -1,5 +1,9 @@
 import { createModalElement } from "./modal.js";
 
+//Fonction pour récupérer les données depuis l'API
+const worksFetch = () =>
+  fetch("http://localhost:5678/api/works").then((response) => response.json());
+
 //Fonction pour générer la page de galerie pour le filtre
 export function filterWorks(works) {
   //Récupération de l'élément du DOM pour la gallerie
@@ -112,6 +116,7 @@ export function deleteWorksById(imgId) {
         //Suppression des 2 images (site et modal en même temps)
         modalFigure.remove();
         siteFigure.remove();
+        alert("La photo a bien été supprimé");
       })
       .catch((error) => {
         console.error(error);
@@ -123,25 +128,23 @@ export function deleteWorksById(imgId) {
 
 //Fonction pour ajouter une photo
 export function AddWorksSubmit() {
-  //Récupération du token
+  //Récupération du token et des données nécessaires pour l'envoi
   const authToken = localStorage.getItem("authToken");
   const imageFile = document.getElementById("file").files[0];
   const imageName = document.getElementById("title").value;
   const imageCategory = document.getElementById("category").value;
 
-  console.log("fichier image debut : ", imageFile);
-  console.log("nom image debut : ", imageName);
-  console.log("categorie image debut : ", imageCategory);
-
+  //Objet pour comparer les clés/valeurs
   const categoryToInt = {
     Objets: 1,
     Appartements: 2,
     HotelsRestaurants: 3,
   };
 
+  //Stock la valeur en INT du la catégorie
   const intCategory = categoryToInt[imageCategory];
-  console.log("categorie en INT : ", intCategory);
 
+  //Création d'un objet contenant les données nécessaire pour l'API avec le token en headers
   const formData = new FormData();
   formData.append("image", imageFile);
   formData.append("title", imageName);
@@ -156,9 +159,8 @@ export function AddWorksSubmit() {
     headers: headers,
     body: formData,
   };
-  console.log(headers);
-  console.log("formData avant envoi : ", formData);
 
+  //Requete API avec les données requises
   fetch("http://localhost:5678/api/works", requestData)
     .then((response) => {
       if (!response.ok) {
@@ -169,6 +171,7 @@ export function AddWorksSubmit() {
     .then((data) => {
       alert("L'image a bien été ajouté");
       createModalElement();
+      loadingWorks(worksFetch);
     })
     .catch((error) => {
       alert("Une erreur s'est produite, veuillez retenter plus tard");

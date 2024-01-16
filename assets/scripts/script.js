@@ -67,7 +67,7 @@ export function hiddenElement() {
 }
 
 //Fonction qui affiche le bouton login ou logout selon présence du token
-export function loginLogoutBtn() {
+export function isLogin() {
   //Récupération des liens pour le login et logout par leur id
   const loginBtn = document.getElementById("loginBtn");
   const logoutBtn = document.getElementById("logoutBtn");
@@ -77,7 +77,12 @@ export function loginLogoutBtn() {
   logoutBtn.style.display = "block";
   //Addlistener pour supprimer le token et se déconnecter en retournant à la page d'accueil
   logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("authToken");
-    window.location.href = "index.html";
+    const confirmLogout = window.confirm(
+      "Confirmez-vous votre intention de vous déconnecter ?"
+    );
+    if (confirmLogout) {
+      localStorage.removeItem("authToken");
+      window.location.href = "index.html";
+    }
   });
 }

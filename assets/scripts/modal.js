@@ -8,7 +8,7 @@ import {
 
 //Fonction pour récupérer les données depuis l'API
 const worksFetch = () =>
-  fetch("http://localhost:5678/api/works").then((works) => works.json());
+  fetch("http://localhost:5678/api/works").then((response) => response.json());
 
 //Fonction regroupant toutes fonctions essentielles à lancer au démarrage
 export function modalElement() {
@@ -107,12 +107,16 @@ function initAddEventListenerAll() {
 
 //Fonction de gestion des événements changeante
 function initAddEventToChange() {
-  document.getElementById("file").addEventListener("change", validateBtnState);
-  document.getElementById("title").addEventListener("input", validateBtnState);
-  document
-    .getElementById("category")
-    .addEventListener("change", validateBtnState);
-  document.getElementById("file").addEventListener("change", previewImage);
+  const fileInput = document.getElementById("file");
+  const titleInput = document.getElementById("title");
+  const categoryInput = document.getElementById("category");
+
+  titleInput.addEventListener("input", validateBtnState);
+  categoryInput.addEventListener("change", validateBtnState);
+  fileInput.addEventListener("change", () => {
+    validateBtnState();
+    previewImage();
+  });
 }
 
 //Fonction pour la vérification des champs du formulaire
@@ -131,11 +135,6 @@ function validateBtnState() {
   } else {
     validateBtn.classList.add("disabled");
   }
-  console.log("État des champs : ", { imageFile, imageName, imageCategory });
-  console.log(
-    "Le bouton Valider est actif : ",
-    validateBtn.classList.contains("disabled") ? "Non" : "Oui"
-  );
 }
 
 //Fonction pour ouvrir la modale

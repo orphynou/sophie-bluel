@@ -22,11 +22,11 @@ document
       body: JSON.stringify(requestBody),
     })
       //Vérification si la réponse http est réussi avec un statut 2xx, si ok, renvoi en json
-      .then((Response) => {
-        if (!Response.ok) {
-          throw new Error("Erreur de connexion");
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
         }
-        return Response.json();
+        return response.json();
       })
       //Si json ok, copie le token dans le localStorage et charge vers la page d'accueil
       .then((data) => {
@@ -35,6 +35,10 @@ document
       })
       //Si erreur réponse, renvoi une alerte en popup du navigateur
       .catch((error) => {
-        alert("L'email ou le mot de passe saisi est incorrect");
+        if (error.message === "401" || error.message === "404") {
+          alert("L'email ou le mot de passe saisi est incorrect");
+        } else {
+          alert("Erreur de connexion. Veuillez réessayer plus tard.");
+        }
       });
   });

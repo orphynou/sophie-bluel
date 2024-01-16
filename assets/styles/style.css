@@ -223,11 +223,7 @@ footer nav ul {
 	border: 1px solid #1D6154;
 	cursor: pointer;
 }
-.filter-menu button[autofocus] {
-	background-color: #1D6154;
-	color: white;
-}
-.filter-menu button:hover {
+.filter-menu button[autofocus], button:hover {
 	background-color: #1D6154;
 	color: white;
 }
@@ -239,7 +235,7 @@ footer nav ul {
 	justify-content: center;
 }
 .editProject h2 {
-align-self: center;
+	align-self: center;
 }
 .editProject p {
 	align-self: center;

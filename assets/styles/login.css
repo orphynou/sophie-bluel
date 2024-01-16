@@ -1,13 +1,14 @@
 /** Login screen **/
-body {
+.login-page {
 	min-height: 100vh;
 	display: grid;
 	grid-template-rows: auto 1fr auto;
+	align-items: flex-start;
 }
 #login {
 	width: 379px;
 	margin: auto;
-	margin-top: 100px
+	margin-top: 100px;
 }
 #login > * {
 	text-align: center;
